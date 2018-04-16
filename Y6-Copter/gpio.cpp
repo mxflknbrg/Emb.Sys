@@ -7,7 +7,7 @@
 
 #include "gpio.hpp"
 
-//using namespace std;
+using namespace std;
 
 /* Symbolische Namen fuer die Datenrichtung und die Daten  */
 #define IN  0
