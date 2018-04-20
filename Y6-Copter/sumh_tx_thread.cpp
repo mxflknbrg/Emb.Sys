@@ -19,8 +19,7 @@
 
 #include "sumh_tx_thread.h"
 
-using namespace std;
-
+//using namespace std;
 
 
 pthread_t sumh_tx_threadid;

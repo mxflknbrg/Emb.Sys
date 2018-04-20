@@ -14,6 +14,10 @@
 
 #include "gpio.hpp"
 #include "sonar.hpp"
+
+#include "height_control.hpp"
+
+
 pthread_t sumh_main_threadid;
 int alarm_cnt=0;
 int gain_cnt=0;
@@ -39,6 +43,7 @@ int sumh_main_start()
 static void * sumh_main_loop(void * val)
 {
 	sumh_frame tmp_frame;
+
 	unsigned int last_id=0;
 
 	for(;;)
@@ -74,7 +79,8 @@ static void * sumh_main_loop(void * val)
 				trigger=true;
 			}
 			keep_position = true;
-		}else
+		}
+		else
 		{
 			if (trigger==true)
 				gpio_sumh_sw(0);
@@ -109,7 +115,7 @@ static void * sumh_main_loop(void * val)
 				//
 			}
 			// Regelung Höhe
-			if ((height_gnd>(height_keep-40)) && (height_gnd<(height_keep+40)) )
+			if ((height_gnd>(height_keep-MAX_POS_OFFSET)) && (height_gnd<(height_keep+MAX_POS_OFFSET)) )
 			{
 				dh = (height_keep-height_gnd);
 				dh_dt = -(height_gnd-dh_old);
