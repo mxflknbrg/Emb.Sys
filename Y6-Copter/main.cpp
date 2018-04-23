@@ -83,7 +83,7 @@ int main(int argc, const char **argv)
 		exit(0);
 	}
 
-	while ((c = getopt (argc, (char* const*) argv, (const char*)"f:h:i:p:k:")) != -1)
+	while ((c = getopt (argc, (char* const*) argv, (const char*)"f:hi:p:k:")) != -1)
 	{
 
 	}
