@@ -68,6 +68,7 @@ void usage(const char *cmd)
 }
 
 int main(int argc, const char **argv)
+
 {
 	int c;
 	static long long int start_time;
@@ -82,34 +83,37 @@ int main(int argc, const char **argv)
 		exit(0);
 	}
 
-	while ((c = getopt (argc, (char* const*) argv, (const char*)"f:hi:p:k:")) != -1)
-		switch (c)
-		{
-		case 'h': usage(argv[0]);
+	while ((c = getopt (argc, (char* const*) argv, (const char*)"f:h:i:p:k:")) != -1)
+	{
+
+	}
+	switch (c)
+	{
+	case 'h': usage(argv[0]);
+	break;
+	case 'k': gain_height=atoi(optarg);
+	break;
+	case 'i': strncpy(ip_address, optarg,20);
+	udp_vectors_enabled=true;
+	break;
+	case 'p': switch(atoi(optarg))
+	{
+	case 0:
+		res_x = 1920; res_y = 1080; mbx = 120; mby = 68; pixelsize = 0;
 		break;
-		case 'k': gain_height=atoi(optarg);
+	case 1:
+		res_x = 1296; res_y = 972; mbx = 81; mby = 61; pixelsize = 0.0028;
 		break;
-		case 'i': strncpy(ip_address, optarg,20);
-		udp_vectors_enabled=true;
+	case 2:
+	default:
+		res_x = 640; res_y = 480; mbx = 40; mby = 30; pixelsize = 0.00567;
 		break;
-		case 'p': switch(atoi(optarg))
-		{
-		case 0:
-			res_x = 1920; res_y = 1080; mbx = 120; mby = 68; pixelsize = 0;
-			break;
-		case 1:
-			res_x = 1296; res_y = 972; mbx = 81; mby = 61; pixelsize = 0.0028;
-			break;
-		case 2:
-		default:
-			res_x = 640; res_y = 480; mbx = 40; mby = 30; pixelsize = 0.00567;
-			break;
-		}
-		break;
-		default: usage(argv[0]);
-		exit(0);
-		break;
-		}
+	}
+	break;
+	default: usage(argv[0]);
+	exit(0);
+	break;
+	}
 
 	// Strg-C abfangen
 	sigIntHandler.sa_handler = ctrl_c_handler;
