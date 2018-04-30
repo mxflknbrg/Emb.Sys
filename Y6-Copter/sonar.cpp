@@ -52,11 +52,9 @@ int sonar_getdistance()
 	{
 		if ((write(fd_i2c, buf, 2)) != 2)
 		{
-			printf("1\n");
 			return 0;
 		}
 		time = GetTimeMs64();
-		printf("2\n");
 	}
 
 	if(GetTimeMs64() - time > 70 )
@@ -64,12 +62,10 @@ int sonar_getdistance()
 		time = GetTimeMs64();
 		if ((write(fd_i2c, buf, 1)) != 1)
 		{
-			printf("3\n");
 			return 0;
 		}
 		if (read(fd_i2c, buf, 4) != 4)
 		{
-			printf("4\n");
 			return 0;
 		}
 		else
@@ -84,12 +80,10 @@ int sonar_getdistance()
 
 		if ((write(fd_i2c, buf, 2)) != 2)
 		{
-			printf("5\n");
 			return 0;
 		}
 		height_gnd = height_tmp;
 	}
-	printf("6\n");
 	return 1; // Success
 }
 

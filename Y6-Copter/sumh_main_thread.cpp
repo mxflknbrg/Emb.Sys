@@ -49,8 +49,6 @@ static void * sumh_main_loop(void * val)
 
 	embSys::PID height_pid;
 
-	height_pid.setRefreshRate(100);
-
 	for(;;)
 	{
 

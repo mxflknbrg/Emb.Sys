@@ -9,7 +9,7 @@
 #define CONFIG_HPP_
 
 #define USE_SONAR true
-#define SONAR_I2C_ADDRESS 0x70
+#define SONAR_I2C_ADDRESS 0x71
 #define SONAR_I2C_FILE	"/dev/i2c-1"
 #define SEND_UDP_VECTORS
 // Graupner

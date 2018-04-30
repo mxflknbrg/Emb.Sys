@@ -1,7 +1,7 @@
 #include "PID.hpp"
 
 namespace embSys {
-    PID::PID(void) :
+    PID::PID() :
         last_error_(0.f),
         last_output_(0.f),
         integral_(0.f),
