@@ -16,6 +16,7 @@
 #include "sonar.hpp"
 
 #include "height_control.hpp"
+#include "PID.hpp"
 
 
 pthread_t sumh_main_threadid;
@@ -45,6 +46,10 @@ static void * sumh_main_loop(void * val)
 	sumh_frame tmp_frame;
 
 	unsigned int last_id=0;
+
+	embSys::PID height_pid;
+
+	height_pid.setRefreshRate(100);
 
 	for(;;)
 	{
@@ -117,6 +122,7 @@ static void * sumh_main_loop(void * val)
 			// Regelung Höhe
 			if ((height_gnd>(height_keep-MAX_POS_OFFSET)) && (height_gnd<(height_keep+MAX_POS_OFFSET)) )
 			{
+				/*
 				dh = (height_keep-height_gnd);
 				dh_dt = -(height_gnd-dh_old);
 				dh_old=height_gnd;
@@ -127,6 +133,7 @@ static void * sumh_main_loop(void * val)
 				if (dh<0) dh /= 3;
 				if (dh>70) dh=70;
 				if (dh<-40) dh=-40;
+				*/
 			}
 			gain_cnt = 0;
 

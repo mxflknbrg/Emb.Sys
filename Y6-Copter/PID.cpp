@@ -1,23 +1,23 @@
 #include "PID.hpp"
 
 namespace embSys {
-    PID::PID() :
-        last_error(0.f),
-        last_output(0.f),
-        integral(0.f),
-        error_threshold(0.f)
+    PID::PID(void) :
+        last_error_(0.f),
+        last_output_(0.f),
+        integral_(0.f),
+        error_threshold_(0.f)
         {}
 
 	void PID::setKp(const float &Kp) {
-		this->Kp = Kp;
+		this->Kp_ = Kp;
 	}
 
 	void PID::setKi(const float &Ki) {
-		this->Ki = Ki*interval;
+		this->Ki_ = Ki*interval_;
 	}
 
 	void PID::setKd(const float &Kd) {
-		this->Kd = Kd/interval;
+		this->Kd_ = Kd/interval_;
 	}
 
 	void PID::setWeights(const float &Kp, const float &Ki, const float &Kd) {
@@ -27,52 +27,52 @@ namespace embSys {
     }
 
 	void PID::setRefreshInterval(const float &refresh_interval) {
-		interval = refresh_interval;
+		interval_ = refresh_interval;
 	}
 
 	void PID::setRefreshRate(const float &refresh_rate) {
-		interval = 1.f/refresh_rate;
+		interval_ = 1.f/refresh_rate;
 	}
 
 	void PID::setErrorThreshold(const float &error_threshold) {
-		this->error_threshold = error_threshold;
+		this->error_threshold_ = error_threshold;
 	}
 
 	void PID::setOutputLowerLimit(const float &output_lower_limit) {
-		this->output_lower_limit = output_lower_limit;
+		this->output_lower_limit_ = output_lower_limit;
 	}
 
 	void PID::setOutputUpperLimit(const float &output_upper_limit) {
-		this->output_upper_limit = output_upper_limit;
+		this->output_upper_limit_ = output_upper_limit;
 	}
 
 	void PID::setDesiredPoint(const float &desired_point) {
-		set_point = desired_point;
+		set_point_ = desired_point;
 	}
 
 	float PID::refresh(const float &feedback_input) {
-		error = set_point-feedback_input;
-		if (error >= error_threshold or error <= -error_threshold) {
-			last_output = Kp*error + Ki*integral + Kd*(error-last_error);
-			if (last_output > output_upper_limit) {
-				last_output = output_upper_limit;
-				if (integral/error < 0.f) {
-					integral += (error+last_error)/2.f;
-					last_error = error;
+		error_ = set_point_-feedback_input;
+		if (error_ >= error_threshold_ or error_ <= -error_threshold_) {
+			last_output_ = Kp_*error_ + Ki_*integral_ + Kd_*(error_-last_error_);
+			if (last_output_ > output_upper_limit_) {
+				last_output_ = output_upper_limit_;
+				if (integral_/error_ < 0.f) {
+					integral_ += (error_+last_error_)/2.f;
+					last_error_ = error_;
 				}
-				return output_upper_limit;
+				return output_upper_limit_;
 			}
-			if (last_output < output_lower_limit) {
-				if (integral/error < 0.f) {
-					integral += (error+last_error)/2.f;
-					last_error = error;
+			if (last_output_ < output_lower_limit_) {
+				if (integral_/error_ < 0.f) {
+					integral_ += (error_+last_error_)/2.f;
+					last_error_ = error_;
 				}
-				last_output = output_lower_limit;
-				return output_lower_limit;
+				last_output_ = output_lower_limit_;
+				return output_lower_limit_;
 			}
-			integral += (error+last_error)/2.f;
-			last_error = error;
+			integral_ += (error_+last_error_)/2.f;
+			last_error_ = error_;
 		}
-		return last_output;
+		return last_output_;
 	}
 };

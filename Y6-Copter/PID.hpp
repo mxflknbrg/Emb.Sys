@@ -2,16 +2,16 @@
 
 namespace embSys {
     class PID {
-        float last_error;
-        float last_output;
-        float set_point;
-        float Kp, Ki, Kd;
-        float integral;
-        float interval;
-        float error_threshold;
-        float output_upper_limit;
-        float output_lower_limit;
-        float error;
+        float last_error_;
+        float last_output_;
+        float set_point_;
+        float Kp_, Ki_, Kd_;
+        float integral_;
+        float interval_;
+        float error_threshold_;
+        float output_upper_limit_;
+        float output_lower_limit_;
+        float error_;
 
         
         public:
