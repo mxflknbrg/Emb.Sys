@@ -59,8 +59,8 @@ namespace embSys {
             /// error will be computed subtracting the feedback input from this value
             void setDesiredPoint(const float &desired_point);
 
-            /// The refresh funcion that make all the PID computation.
-            /// Call it at specific rate, setted by setRefreshRate or setRefreshInterval (read descriptions).
+            /// The refresh function that make all the PID computation.
+            /// Call it at specific rate, set by setRefreshRate or setRefreshInterval (read descriptions).
             /// (use a timer interrupt if used on a embedded microcontroller)
             /// The feedback_input is the value from the feedback.
             /// The returned value is the output value of the filter.

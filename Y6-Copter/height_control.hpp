@@ -3,9 +3,6 @@
  *
  *  Created on: 20.04.2018
  *      Author: falkenberg
- *
- *
- *      test
  */
 
 #ifndef HEIGHT_CONTROL_HPP_
