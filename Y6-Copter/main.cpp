@@ -47,6 +47,8 @@
 using namespace cv;
 using namespace std;
 
+extern float pid_parameter;
+
 void ctrl_c_handler(int s)
 {
 	printf("\033[2J");
@@ -91,7 +93,9 @@ int main(int argc, const char **argv)
 		case 'h': usage(argv[0]);
 		printf("case h\n");
 		break;
-		case 'k': gain_height=atoi(optarg);
+		case 'k':
+			gain_height=atoi(optarg);
+			pid_parameter = atof(optarg);
 		break;
 		case 'i': strncpy(ip_address, optarg,20);
 		udp_vectors_enabled=true;

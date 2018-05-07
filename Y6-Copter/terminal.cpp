@@ -17,6 +17,8 @@
 
 pthread_t terminal_threadid;
 
+extern float pid_out_debug;
+
 static void *terminal_loop(void *all);
 
 int terminal_start()
@@ -63,6 +65,8 @@ static void *terminal_loop(void *all)
 		printf("   CRC rec/calc    %04X     %04X",crcbuf_rec, crcbuf_calc);
 
 		printf("\n");
+
+		printf("PID OUT:\t%f\n", pid_out_debug);
 		/*printf("   rx data:  ");
 		for (i=0;i<21;i++)
 			printf(" %3i",rx_cmd[i]);

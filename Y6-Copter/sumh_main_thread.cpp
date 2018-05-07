@@ -17,10 +17,12 @@
 
 #include "height_control.hpp"
 #include "PID.hpp"
+#include <cstdio>
 
 
-#define PID_LOWERLIMIT_F	1000.f
-#define PID_UPPERLIMIT_F	2000.f
+#define PID_LOWERLIMIT_F	(-200.0)
+#define PID_UPPERLIMIT_F	200.0
+#define HOVER_THROTTLE		1484
 
 pthread_t sumh_main_threadid;
 int alarm_cnt=0;			// Wofür?
@@ -33,6 +35,9 @@ int dh=0;
 int dh_old;
 int dh_dt;
 int esum=0;
+
+float pid_out_debug;
+float pid_parameter;
 
 static void * sumh_main_loop(void * val);
 
@@ -56,9 +61,9 @@ static void * sumh_main_loop(void * val)
 
 	height_pid.setRefreshInterval(0.01);		// Refresh interval in seconds
 
-	height_pid.setKp();
-	height_pid.setKi();
-	height_pid.setKd();
+	height_pid.setKp(pid_parameter);
+	height_pid.setKi(0.1);
+	height_pid.setKd(0.0);
 
 	height_pid.setOutputLowerLimit(PID_LOWERLIMIT_F);
 	height_pid.setOutputUpperLimit(PID_UPPERLIMIT_F);
@@ -68,7 +73,6 @@ static void * sumh_main_loop(void * val)
 
 	for(;;)
 	{
-
 		//--------------------------------------------------------
 		// Ultraschall-Sensor abfragen...
 		if (usesonar)
@@ -99,10 +103,14 @@ static void * sumh_main_loop(void * val)
 				trigger=true;
 
 //-----------------------------------------------------------
-				height_pid.setDesiredPoint((float)height_keep);
+				//height_pid.setDesiredPoint((float)height_keep);
+
+				height_pid.setDesiredPoint(80.f);
 //-----------------------------------------------------------
 			}
 			keep_position = true;
+
+			pid_out_debug = (unsigned short int)height_pid.refresh((float)height_gnd);
 		}
 		else
 		{
@@ -157,7 +165,7 @@ static void * sumh_main_loop(void * val)
 			gain_cnt = 0;
 
 			// Umrechnung nötig
-			tmp_frame.throttle += (unsigned short int)height_pid.refresh((float)height_gnd);
+			tmp_frame.throttle = HOVER_THROTTLE + (short int)height_pid.refresh((float)height_gnd);
 
 		}
 

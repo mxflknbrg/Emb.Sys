@@ -69,7 +69,7 @@
 	extern int  crcbuf_rec, crcbuf_calc;
 
 
-
 #endif
+
 
 #endif /* GLOBALS_HPP_ */
