@@ -32,7 +32,7 @@ sumh_frame rx_failsafe;
 
 int sumh_rx_start()
 {
-	rx_failsafe.throttle = 1500;
+	rx_failsafe.throttle = 1500;			// Eventuell Wert zu hoch, Copter würde steigen
 	rx_failsafe.roll = 1500;
 	rx_failsafe.pitch = 1500;
 	rx_failsafe.yaw = 1500;

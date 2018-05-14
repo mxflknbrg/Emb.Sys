@@ -19,7 +19,9 @@
 
 #include "sumh_tx_thread.h"
 
-//using namespace std;
+using namespace std;
+
+int crc_tx_debug;
 
 
 pthread_t sumh_tx_threadid;
@@ -45,17 +47,18 @@ int sumh_tx_sendframe(void)
 
 	for(i = 0; i < 8; i++)
 	{
-		temp_frame.shorts[i] = (temp_frame.shorts[i] + 375)*6.4; //Werte skalieren
+		// temp_frame.shorts[i] = (temp_frame.shorts[i] + 375)*6.4; //Werte skalieren
+		temp_frame.shorts[i] = temp_frame.shorts[i] << 3;
 		uint8_t lb = temp_frame.shorts[i] & 0xFF; //Bytes umdrehen
 		temp_frame.shorts[i] = ((uint16_t)lb << 8) + (temp_frame.shorts[i] >> 8);
 	}
 
 	//Header
-	puffer[0] = 0xA8;
-	puffer[1] = 0x01;
-	puffer[2] = 0x08;
+	puffer[0] = 0xA8;			// Graupner Indikator
+	puffer[1] = 0x01;			// Frame OK
+	puffer[2] = 0x08;			// Anzahl Kan‰le
 
-	//Kan√§le
+	//Kan‰le
 	for(i = 0; i < 16; i++)
 		puffer[i+3] = temp_frame.bytes[i];
 
@@ -64,8 +67,10 @@ int sumh_tx_sendframe(void)
 		CRC = CRC16(CRC, puffer[i]);
 
 	//CRC
-	puffer[19] = CRC & 0xFF; //High Byte
-	puffer[20] = (CRC >> 8) & 0xFF; //Low Byte
+	puffer[19] = (CRC & 0xFF00) >> 8; //High Byte
+	puffer[20] = CRC & 0x00FF; //Low Byte
+
+	crc_tx_debug = CRC;
 
 	return sumh_tx_sendbytes(puffer, 21);
 }

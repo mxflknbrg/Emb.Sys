@@ -18,6 +18,7 @@
 pthread_t terminal_threadid;
 
 extern float pid_out_debug;
+extern int crc_tx_debug;
 
 static void *terminal_loop(void *all);
 
@@ -64,9 +65,10 @@ static void *terminal_loop(void *all)
 		printf("   8:AUX4          %4i    [%4i]\n", rx_frame.aux4, tx_frame.aux4);
 		printf("   CRC rec/calc    %04X     %04X",crcbuf_rec, crcbuf_calc);
 
-		printf("\n");
+		printf("\n\n");
 
 		printf("PID OUT:\t%f\n", pid_out_debug);
+		printf("CRC TX:\t%04X", crc_tx_debug);
 		/*printf("   rx data:  ");
 		for (i=0;i<21;i++)
 			printf(" %3i",rx_cmd[i]);
