@@ -8,7 +8,19 @@
 #ifndef HEIGHT_CONTROL_HPP_
 #define HEIGHT_CONTROL_HPP_
 
+#include "PID.hpp"
+
 #define MAX_POS_OFFSET 40
+
+#define PID_LOWERLIMIT_F	(-200.0)
+#define PID_UPPERLIMIT_F	200.0
+
+
+namespace embSys
+{
+void setupPID(PID *pid);
+
+};
 
 
 

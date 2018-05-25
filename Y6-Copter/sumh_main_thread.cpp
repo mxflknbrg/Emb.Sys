@@ -20,9 +20,6 @@
 #include <cstdio>
 
 
-#define PID_LOWERLIMIT_F	(-200.0)
-#define PID_UPPERLIMIT_F	200.0
-
 pthread_t sumh_main_threadid;
 int alarm_cnt=0;			// Wofür?
 int gain_cnt=0;				// Wofür?
@@ -36,7 +33,6 @@ int dh_dt;
 int esum=0;
 
 float pid_out_debug;
-float pid_parameter;
 
 int hover_throttle;
 
@@ -60,15 +56,7 @@ static void * sumh_main_loop(void * val)
 
 	embSys::PID height_pid;
 
-	height_pid.setRefreshInterval(0.01);		// Refresh interval in seconds
-
-	height_pid.setKp(pid_parameter);
-	height_pid.setKi(0.0);
-	height_pid.setKd(0.0);
-
-	height_pid.setOutputLowerLimit(PID_LOWERLIMIT_F);
-	height_pid.setOutputUpperLimit(PID_UPPERLIMIT_F);
-
+	embSys::setupPID(&height_pid);
 
 //-------------------------------------------------------------------------------
 

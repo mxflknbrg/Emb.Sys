@@ -44,6 +44,8 @@
 #include "sumh_main_thread.hpp"
 #include "terminal.hpp"
 
+#include "height_control.hpp"
+
 using namespace cv;
 using namespace std;
 
