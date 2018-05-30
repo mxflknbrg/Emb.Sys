@@ -24,6 +24,7 @@ void setupPID(PID *pid)
 	pid->setKd(0.0);
 	pid->setOutputLowerLimit(PID_LOWERLIMIT_F);
 	pid->setOutputUpperLimit(PID_UPPERLIMIT_F);
+	pid->setErrorThreshold(PID_ERRORTHRESHOLD);
 }
 
 

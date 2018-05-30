@@ -14,6 +14,7 @@
 
 #define PID_LOWERLIMIT_F	(-200.0)
 #define PID_UPPERLIMIT_F	200.0
+#define PID_ERRORTHRESHOLD	2
 
 
 namespace embSys
