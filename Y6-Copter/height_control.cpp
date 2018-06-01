@@ -19,15 +19,17 @@ namespace embSys
 void setupPID(PID *pid)
 {
 	pid->setRefreshInterval(0.01);		// Refresh interval in seconds
-	pid->setKp(pid_parameter);
-	pid->setKi(0.0);
-	pid->setKd(0.0);
+	pid->setKp(0.5);					// Ermittelt, kaum bis keine Oszillation
+	pid->setKi(pid_parameter);
+	pid->setKd(0.01);
 	pid->setOutputLowerLimit(PID_LOWERLIMIT_F);
 	pid->setOutputUpperLimit(PID_UPPERLIMIT_F);
 	pid->setErrorThreshold(PID_ERRORTHRESHOLD);
 }
 
 
+
+/*
 int sonarAverage(void)
 {
 	int retVal = 0;
@@ -83,4 +85,8 @@ int sonarAverage(void)
 	}
 	return 1; // Success
 }
+
+*/
+
+
 };
